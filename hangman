@@ -1,0 +1,64 @@
+import random
+print("H A N G M A N")
+
+
+def menu():
+    answer = []
+    while answer != 'exit':
+        answer = input('Type "play" to play the game, "exit" to quit:')
+        if answer == 'play':
+            play_game()
+        elif answer == 'exit':
+            pass
+        else:
+            print()
+
+
+def play_game():
+    lang = ['python', 'java', 'kotlin', 'javascript']
+    the_one = random.choice(lang)
+    print()
+    print('-' * (len(the_one)))
+    letters_guessed = []
+    letters_inputed = []
+    alphabet = tuple('abcdefghijklmnopqrstuvwxyz')
+    tries = 8
+
+    while True:
+        guess = input('Input a letter:')
+        if len(guess) != 1:
+            print('You should print a single letter')
+        elif guess not in alphabet:
+            print('It is not an ASCII lowercase letter')
+            letters_inputed.append(guess)
+        elif guess in letters_inputed:
+            print('You already typed this letter')
+        elif guess not in the_one:
+            tries -= 1
+            print('No such letter in the word')
+            letters_inputed.append(guess)
+        elif guess in letters_guessed:
+            print('You already typed this letter')
+        else:
+            letters_guessed.append(guess)
+        status = ''
+        for letter in the_one:
+            if letter in letters_guessed:
+                status += letter
+            else:
+                status += '-'
+        if '-' not in status:
+            print(status)
+            print("You guessed the word! \nYou survived!")
+            break
+        if tries > 0:
+            print('')
+            print(status)
+
+        if tries == 0:
+            print("You are hanged!")
+            break
+    print()
+
+
+menu()
